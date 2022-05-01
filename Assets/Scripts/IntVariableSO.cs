@@ -7,19 +7,28 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "newInt", menuName = "SO/Int Variable", order = 20)]
 public class IntVariableSO : ScriptableObject
 {
-    [SerializeField] private bool isPositiveOnly;
-    [SerializeField] private int value;
+    [SerializeField] private bool useMinValue;
+    [SerializeField] private int minValue = 0;
+    [Space]
+    [SerializeField] private bool useMaxValue;
+    [SerializeField] private int maxValue = 100;
+    [Space]
     [SerializeField] private int defaultValue = 0;
+    
+    private int value;
 
     public int Value 
     { 
         get => value;
         set
         {
-            if (isPositiveOnly && value < 0)
+            if (useMinValue && value < minValue)
             {
-                this.value = 0;
-                Debug.Log("Smth tried to assign negative value to Int Var marked as Positive only. Var name: " + name);
+                this.value = minValue;
+            }
+            else if (useMaxValue && value > maxValue)
+            {
+                this.value = maxValue;
             }
             else
             {
@@ -30,14 +39,7 @@ public class IntVariableSO : ScriptableObject
 
     private void OnEnable()
     {
-        if (isPositiveOnly && defaultValue < 0)
-        {
-            Debug.LogError("Positive only Int var can't have a negative default value!");
-        }
-        else
-        {
-            Reset();
-        }
+        Reset();
     }
 
     public void Reset() => Value = defaultValue;

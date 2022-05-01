@@ -10,6 +10,8 @@ public static class Events
 {
     // Player input
 
+    // Player stats
+    public static readonly Evt<string> onPlayerDeath = new Evt<string>();
 
     // Event with parameter example
     //public static readonly Evt<Card> onCardClicked = new Evt<Card>();

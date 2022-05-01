@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91a3e747b6286004dbec9763627762c7, type: 3}
-  m_Name: playerExp
+  m_Name: player1Exp
   m_EditorClassIdentifier: 
-  isPositiveOnly: 0
-  value: 0
+  useMinValue: 1
+  minValue: 0
+  useMaxValue: 0
+  maxValue: 0
   defaultValue: 0
