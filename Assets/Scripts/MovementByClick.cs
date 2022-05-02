@@ -53,10 +53,8 @@ public class MovementByClick : MonoBehaviour
     {
         Vector3 distanceToTarget = new Vector3(moveTarget.x - transform.position.x, 0, moveTarget.z - transform.position.z);
         // для оптимизации сравниваем не дистанцию до цели, а квадрат этой дистанции.
-        Debug.Log(distanceToTarget);
         if (distanceToTarget.sqrMagnitude <= targetingInaccuracy)
         {
-            Debug.Log("Exit moving");
             return;
         }
 

@@ -46,4 +46,5 @@ public class IntVariableSO : ScriptableObject
 
     public bool IsZero() => Value == 0;
 
+    public static implicit operator int(IntVariableSO intSO) => intSO.Value;
 }

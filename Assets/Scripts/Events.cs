@@ -8,7 +8,9 @@ using System;
 // list of all events, events are created here.
 public static class Events
 {
-    // Player input
+    // Gameplay
+    public static readonly Evt<InteractiveObjectBase> onInteractiveObjectClicked = new Evt<InteractiveObjectBase>();
+    public static readonly Evt<InteractiveObjectBase> onInteractiveObjectDestroyed = new Evt<InteractiveObjectBase>();
 
     // Player stats
     public static readonly Evt<string> onPlayerDeath = new Evt<string>();
