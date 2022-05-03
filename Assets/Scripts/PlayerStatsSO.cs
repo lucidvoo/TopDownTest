@@ -60,5 +60,19 @@ public class PlayerStatsSO : ScriptableObject
         }
     }
 
-    
+    public void GiveExp(int expToGive)
+    {
+        if (!isDead)
+        {
+            exp.Value += expToGive;
+        }
+    }
+
+    public void LoseExp(int expToLose)
+    {
+        if (!isDead)
+        {
+            exp.Value -= expToLose;
+        }
+    }
 }

@@ -9,6 +9,7 @@ public class InteractiveObjectBase : MonoBehaviour
     public string description;
     
     [HideInInspector] public bool isInteractable;
+    [HideInInspector] public PlayerController playerNearby;
 
     private void Start()
     {

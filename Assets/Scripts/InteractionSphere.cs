@@ -17,6 +17,7 @@ public class InteractionSphere : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             interObjectScript.SetInteractivityTo(true);
+            interObjectScript.playerNearby = other.gameObject.GetComponent<PlayerController>();
         }
     }
 
@@ -25,6 +26,7 @@ public class InteractionSphere : MonoBehaviour
         if (other.CompareTag(playerTag))
         {
             interObjectScript.SetInteractivityTo(false);
+            interObjectScript.playerNearby = null;
         }
     }
 }

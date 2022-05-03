@@ -21,6 +21,7 @@ public class MovementByClick : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody>();
         targetingInaccuracy *= targetingInaccuracy;
+        moveTarget = transform.position;
     }
 
     private void Update()
