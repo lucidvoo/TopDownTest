@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Разновидность объекта, который уменьшает здоровье игрока при клике
+
 public class Hurting : InteractiveObjectBase
 {
     [SerializeField] private int healthToLose = 25;
+
 
     public override void Interact(InteractiveObjectBase objClicked)
     {
@@ -19,6 +22,7 @@ public class Hurting : InteractiveObjectBase
             Debug.LogError("Smth wrong with player detection");
         }
     }
+
 
     public override ObjSaveData GetSaveData()
     {

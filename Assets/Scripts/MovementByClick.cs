@@ -1,7 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+// плавное движение игрока щелчками мыши или удерживанием кнопки мыши
 
 [RequireComponent(typeof(Rigidbody))]
 public class MovementByClick : MonoBehaviour
@@ -11,23 +10,28 @@ public class MovementByClick : MonoBehaviour
     [SerializeField] private new Camera camera;
     [SerializeField] private string groundTag = "Ground";
     [Tooltip("Расстояние между игроком и его целью\nпри котором он перестает двигаться к ней")]
-    [SerializeField] private float targetingInaccuracy = 0.1f;
+    [SerializeField] private float targetingInaccuracy = 0.3f;
 
     private Rigidbody rigidBody;
     private RaycastHit raycastHit;
+    // точка, выбираемая щелчком мыши, к которой стремится игрок
     private Vector3 moveTarget;
+
 
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody>();
+        // мы будем использовать квадрат этой переменной в рассчетах
         targetingInaccuracy *= targetingInaccuracy;
         moveTarget = transform.position;
     }
+
 
     private void Update()
     {
         MouseClickHandling();
     }
+
 
     private void MouseClickHandling()
     {
@@ -45,10 +49,12 @@ public class MovementByClick : MonoBehaviour
         }
     }
 
+
     private void FixedUpdate()
     {
         MoveToTarget();
     }
+
 
     private void MoveToTarget()
     {
@@ -60,6 +66,5 @@ public class MovementByClick : MonoBehaviour
         }
 
         rigidBody.AddForce(distanceToTarget * movementSpeed * Time.fixedDeltaTime * 200f);
-        //rigidBody.velocity = distanceToTarget.normalized * movementSpeed * Time.fixedDeltaTime * 10f;
     }
 }

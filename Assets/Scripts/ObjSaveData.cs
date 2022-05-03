@@ -1,12 +1,15 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+// класс хранилище дл€ данных, необходимых дл€ сохренени€/загрузки объекта
+// массив экземпл€ров этого класса будет записан в файл при сохранении.
 
 [Serializable]
 public class ObjSaveData
 {
+    // позици€
     private float x, y, z;
+    // тип интерактивного объекта дл€ того чтобы узнать из какого префаба его воссоздавать при загрузке
     private Type objType;
 
     public float X => x;

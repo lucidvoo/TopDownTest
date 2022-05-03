@@ -1,37 +1,42 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
+// логика работы отдельной области и ее кнопок. Сохранение/загрузка, спавн объектов.
+
 public class AreaController : MonoBehaviour
 {
-    // массив префабов объектов
     [SerializeField] InteractiveObjectBase[] objectPrefabs;
     
-    // коллайдер области
+    // коллайдер области для того, чтобы спавнить объекты внутри нее
     private Collider areaCollider;
-    // лист созданных объектов
+    // список созданных объектов, чтобы можно было их удалить или сохранить
     private List<InteractiveObjectBase> objects = new List<InteractiveObjectBase>();
     private string pathToSave;
+
 
     private void Start()
     {
         areaCollider = GetComponent<Collider>();
+
         pathToSave = Path.Combine(Application.persistentDataPath, gameObject.name + ".sav");
     }
+
 
     private void OnEnable()
     {
         Events.onInteractiveObjectDestroyed.AddListener(TryRemoveObject);
     }
 
+
     private void OnDisable()
     {
         Events.onInteractiveObjectDestroyed.RemoveListener(TryRemoveObject);
     }
 
+
+    // если объект удален(например, разрушаемый объект), то нужно обновить массив объектов
     private void TryRemoveObject(InteractiveObjectBase objToRemove)
     {
         for (int i = 0; i < objects.Count; i++)
@@ -44,7 +49,8 @@ public class AreaController : MonoBehaviour
         }
     }
 
-    // метод спавна случайного объекта из массива в случайном месте коллайдера
+
+    // метод спавна случайного объекта из массива префабов в случайном месте коллайдера
     public void SpawnRandomly()
     {
         InteractiveObjectBase objToSpawn = objectPrefabs[UnityEngine.Random.Range(0, objectPrefabs.Length)];
@@ -52,6 +58,7 @@ public class AreaController : MonoBehaviour
         Vector3 position = new Vector3(UnityEngine.Random.Range(bnds.min.x, bnds.max.x),
                                         objToSpawn.transform.position.y,
                                         UnityEngine.Random.Range(bnds.min.z, bnds.max.z));
+
         objects.Add(Instantiate(objToSpawn, position, objToSpawn.transform.rotation, transform));
     }
 
@@ -66,22 +73,23 @@ public class AreaController : MonoBehaviour
         objects.Clear();
     }
 
+
     #region Save & Load
-    // метод сохранения конфигурации объектов с перезаписью имеющейся
+
+    // сохранение текущей конфигурации объектов в области
     public void SaveObjects()
     {
-        // прочесать все объекты и создать из них массив сейв-объектов.
-        ObjSaveData[] objSaves;
-        
-        objSaves = new ObjSaveData[objects.Count];
+        // массив информации по каждому объекту, который будем записывать в файл.
+        ObjSaveData[] objSaves = new ObjSaveData[objects.Count];
 
         for (int i = 0; i < objSaves.Length; i++)
         {
             objSaves[i] = objects[i].GetSaveData();
         }
-        // этот массив записать в файл с перезаписью поверх.
+        
         SaveToFile(objSaves);
     }
+
 
     private void SaveToFile(ObjSaveData[] objSaves)
     {
@@ -93,21 +101,25 @@ public class AreaController : MonoBehaviour
         fStream.Close();
     }
 
+
     // метод загрузки сохраненной конфигурации, если она есть.
     public void LoadObjects()
     {
         ObjSaveData[] objSaves = LoadFromFile();
-        // проверить есть ли файл сохранения. 
+
+        // null будет в случае если файла нет
         if (objSaves == null)
         {
             return;
         }
-        // если есть то Clear() а потом создать все объекты заново с использованием данных из файла
+
+        // удалим все имеющиеся объекты и создадим новые
         DestroyObjects();
 
         foreach (ObjSaveData save in objSaves)
         {
             InteractiveObjectBase objToSpawn = null;
+            // нужно найти к какому типу относится объект из сохранения и выбрать соотв. префаб
             for (int i = 0; i < objectPrefabs.Length; i++)
             {
                 if (Equals(save.ObjType, objectPrefabs[i].GetType()))
@@ -116,15 +128,16 @@ public class AreaController : MonoBehaviour
                     break;
                 }
             }
+
             if(objToSpawn == null)
             {
-                Debug.LogError("Cant find needed type. Use ReferenceEquals?");
+                Debug.LogError("Cant find needed type.");
             }
 
             objects.Add(Instantiate(objToSpawn, new Vector3(save.X, save.Y, save.Z), objToSpawn.transform.rotation, transform));
         }
-        // в файле массив экземпляров спец. сейв-объектов в которых есть инфо о том, какой префаб использован и в каком месте он появляется.
     }
+
 
     private ObjSaveData[] LoadFromFile()
     {

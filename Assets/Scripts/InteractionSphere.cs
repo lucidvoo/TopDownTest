@@ -1,6 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+// Отслеживаем вход и выход игрока в сферический коллайдер вокруг объекта
+// Подсвечиваем интерактивные объекты
 
 public class InteractionSphere : MonoBehaviour
 {

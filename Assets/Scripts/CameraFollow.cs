@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+// камера плавно следует за игроком.
 
 public class CameraFollow : MonoBehaviour
 {
@@ -9,13 +9,13 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 cameraOffset;
     
-    // Start is called before the first frame update
+
     void Start()
     {
         cameraOffset = transform.position - target.position;
     }
 
-    // Update is called once per frame
+
     void LateUpdate()
     {
         Vector3 newPosition = target.position + cameraOffset;

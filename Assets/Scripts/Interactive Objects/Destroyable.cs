@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+// разновидность объекта, который разрушается за несколько кликов
 
 public class Destroyable : InteractiveObjectBase
 {
     [SerializeField] private int hitsToDestroy = 3;
 
     private int timesHit = 0;
+
 
     public override void Interact(InteractiveObjectBase objClicked)
     {
@@ -20,6 +21,7 @@ public class Destroyable : InteractiveObjectBase
             Destroy(gameObject);
         }
     }
+
 
     public override ObjSaveData GetSaveData()
     {

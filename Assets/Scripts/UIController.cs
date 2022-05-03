@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System;
 using UnityEngine.SceneManagement;
+
+// Управление логикой UI, действия кнопок.
 
 public class UIController : MonoBehaviour
 {
@@ -14,15 +13,18 @@ public class UIController : MonoBehaviour
     [SerializeField] private GameObject objectInfo;
     [SerializeField] private TextMeshProUGUI objInfoText;
 
+    // если панель ObjectInfo активна, то здесь хранится объект о котором речь.
     private InteractiveObjectBase currentActiveObj = null;
     private int prevHealth = -1, 
                 prevExp = -1;
+
 
     private void Start()
     {
         deathScreen.gameObject.SetActive(false);
         objectInfo.gameObject.SetActive(false);
     }
+
 
     private void OnEnable()
     {
@@ -39,18 +41,23 @@ public class UIController : MonoBehaviour
         Events.onObjectBecomeNotInteractive.RemoveListener(TryHideObjInfo);
     }
 
+
     private void ShowDeathScreen(string obj)
     {
         deathScreen.gameObject.SetActive(true);
     }
 
+
+    // Обработчик кнопки Restart на экране смерти
     public void RestartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+
     private void Update()
     {
+        // значения индикаторов присваиваются только если они изменились
         if (prevHealth != playerStats.Health)
         {
             prevHealth = playerStats.Health;
@@ -64,6 +71,8 @@ public class UIController : MonoBehaviour
         }
     }
 
+
+    // отображение панели с информацией об объекте, который был нажат
     private void ShowObjectInfo(InteractiveObjectBase objClicked)
     {
         if (currentActiveObj == objClicked)
@@ -79,6 +88,8 @@ public class UIController : MonoBehaviour
         objInfoText.text = objClicked.description;
     }
 
+
+    // если игрок вышел из области интерактивности объекта, то нужно спрятать Object Info panel
     private void TryHideObjInfo(InteractiveObjectBase objLostInteractivity)
     {
         if (currentActiveObj != objLostInteractivity)

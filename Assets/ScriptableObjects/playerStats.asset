@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 86b7c3db01689ba4b95f37fa44d1b253, type: 3}
-  m_Name: player1Stats
+  m_Name: playerStats
   m_EditorClassIdentifier: 
   health: {fileID: 11400000, guid: a4d309d8b543e0d4c8a89d440a7fff9a, type: 2}
   initialHealth: 100

@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using System;
 
-// Generic event system
+// Обобщенная система событий. События создаются в классе Events одной строкой
+// остается только подписать и отписать на них нужные методы в нужных местах.
 
 // list of all events, events are created here.
 public static class Events
@@ -23,6 +21,7 @@ public static class Events
     // Event without parameters example
     //public static readonly Evt onGameStarted = new Evt();
 }
+
 
 // event class with no parameters
 public class Evt
@@ -44,6 +43,7 @@ public class Evt
         EventAction.Invoke();
     }
 }
+
 
 // event with 1 parameter
 public class Evt<T>

@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+// разновидность объекта, который дает опыт игроку при клике
 
 public class GivingExperience : InteractiveObjectBase
 {

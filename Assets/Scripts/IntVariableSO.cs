@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-// stores one int var for easy and decoupled sharing data between scripts
+// SO для хранения одного значения типа int. Используется для снижения связанности, для легкого обмена
+// этой переменной между компонентами. А так же дает доп. возможности в виде указания макс. и мин. значения.
 
 [CreateAssetMenu(fileName = "newInt", menuName = "SO/Int Variable", order = 20)]
 public class IntVariableSO : ScriptableObject
@@ -39,12 +38,16 @@ public class IntVariableSO : ScriptableObject
 
     private void OnEnable()
     {
-        Reset();
+        // параметры управляются из PlayerStatsSO, поэтому здесь выключаем
+        //Reset();
     }
+
 
     public void Reset() => Value = defaultValue;
 
+
     public bool IsZero() => Value == 0;
+
 
     public static implicit operator int(IntVariableSO intSO) => intSO.Value;
 }
