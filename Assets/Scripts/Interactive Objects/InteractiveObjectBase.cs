@@ -43,6 +43,15 @@ public class InteractiveObjectBase : MonoBehaviour
         isInteractable = state;
 
         interactionIndicator.SetActive(state);
+
+        if (state)
+        {
+            Events.onObjectBecomeInteractive.Invoke(this);
+        }
+        else
+        {
+            Events.onObjectBecomeNotInteractive.Invoke(this);
+        }
     }
 
     public virtual ObjSaveData GetSaveData()

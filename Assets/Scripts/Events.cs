@@ -11,6 +11,8 @@ public static class Events
     // Gameplay
     public static readonly Evt<InteractiveObjectBase> onInteractiveObjectClicked = new Evt<InteractiveObjectBase>();
     public static readonly Evt<InteractiveObjectBase> onInteractiveObjectDestroyed = new Evt<InteractiveObjectBase>();
+    public static readonly Evt<InteractiveObjectBase> onObjectBecomeInteractive = new Evt<InteractiveObjectBase>();
+    public static readonly Evt<InteractiveObjectBase> onObjectBecomeNotInteractive = new Evt<InteractiveObjectBase>();
 
     // Player stats
     public static readonly Evt<string> onPlayerDeath = new Evt<string>();
