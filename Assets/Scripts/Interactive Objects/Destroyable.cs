@@ -20,4 +20,9 @@ public class Destroyable : InteractiveObjectBase
             Destroy(gameObject);
         }
     }
+
+    public override ObjSaveData GetSaveData()
+    {
+        return new ObjSaveData(transform.position, GetType());
+    }
 }

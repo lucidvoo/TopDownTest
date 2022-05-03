@@ -22,6 +22,7 @@ public class WorldButtonHandler : MonoBehaviour
             case ClickAction.Load: areaController.LoadObjects();
                 break;
             default:
+                Debug.LogError("Something wrong");
                 break;
         }
     }

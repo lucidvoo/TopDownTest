@@ -44,4 +44,9 @@ public class InteractiveObjectBase : MonoBehaviour
         interactionIndicator.SetActive(state);
     }
 
+    public virtual ObjSaveData GetSaveData()
+    {
+        return new ObjSaveData(transform.position, GetType());
+    }
+
 }
